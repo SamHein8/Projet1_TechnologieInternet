@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<link rel="stylesheet" href="css.css">
+<body>
+<script src="mesFonctions.js"></script>
+<div class = "topnav">
+  <a class="active">Home</a>
+  <a onclick ="boutonNouveau()">Nouveau message</a>
+  <a onclick ="boutonCarnet()">Carnet d'adresse</a>
+  <a onclick ="boutonBoite()">Boite de réception</a>
+  <a>About</a>
+</div>
+<div id ="principal" class = "principal">
+<h3>UNIVERSITÉ DU QUÉBEC EN OUTAOUAIS</h3>
+TRAVAIL DE SESSION
+
+PRÉSENTÉ À
+
+Fraczak Wojciech
+
+COMME EXIGENCE PARTIELLE
+
+DU COURS
+
+Technologie Internet 
+
+
+PAR
+
+Hein Samuel
+
+Projet 1
+
+
+
+
+08-03-2022
+
+
+
+</div>
+<div class ="divMessage" id = "composer">
+<br>
+<!--<label for="message">Nouveau message</label>-->
+<!--<label onclick="contact()" for="destinataire" style ="margin-left:10px">À :  </label> -->
+<!--<input type="text" id="destinataire" name="destinataire">-->
+<h3> Composer un nouveau message </h3>
+<textarea id="message" name="envoieMessage" rows="5" onkeypress= "verifierCaractere()" ></textarea>
+<input type = "button" onclick = "envoyerMessage()" value = "Envoyer">
+<br>
+</div>
+
+<div id ="mesMessages">
+<h3> Mes messages</h3>
+<p id = "listedesMessages">
+</p>
+</div>
+
+
+<div id ="nouveauContact">
+<h3> Créer un nouveau contact</h3>
+<input type = "button" onclick = "genererCle()" value = "Générer une clé"> 
+<textarea readonly class = "textSecretKey" id = "SecretKey" name = "SecretKey" > </textarea>
+<input type = "button" onclick = "ajouterAuCarnet()" value = "Nouveau Contact">  
+</br>
+<h3> Liste des contact(s)</h3>
+</div>
+<div id ="mesContacts">
+
+</div>
+
+
+</body>
+</html>

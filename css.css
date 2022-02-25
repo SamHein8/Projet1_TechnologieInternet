@@ -1,0 +1,66 @@
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+  width: 100%;
+}
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  
+}
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.divMessage {
+	width: 100%;
+	
+	
+}
+.textSecretKey{
+	height: 100px
+	
+	
+}
+
+.principal {
+ border: 5px solid #f2f2f2;
+ text-align: center;
+ white-space: pre;
+	
+}
+
+textarea{
+	width: 95%;
+	padding: 6px;
+	margin-left : 10px;
+	resize: none;
+}
+label{
+	border:1px solid;	
+	padding:2px;
+	margin-right : 5px;	
+	
+}
+h3{
+	margin : 0px;
+	margin-top : 10px;
+	margin-left : 10px;	
+}
+
+h4{
+	margin : 0px;
+	margin-top : 10px;
+	margin-left : 10px;	
+}
