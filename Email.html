@@ -46,22 +46,32 @@ Projet 1
 <!--<input type="text" id="destinataire" name="destinataire">-->
 <h3> Composer un nouveau message </h3>
 <textarea id="message" name="envoieMessage" rows="5" onkeypress= "verifierCaractere()" ></textarea>
-<input type = "button" onclick = "envoyerMessage()" value = "Envoyer">
+<input type = "button" onclick = "envoyerMessage()"  value = "Envoyer">
 </br>
 </div>
 
 <div id ="mesMessages">
 <h3> Mes messages</h3>
-<p id = "listedesMessages">
-</p>
+<table class="table table-striped mt-5">
+	<thead>
+		<tr>
+			<th>Message</th>
+			<th>Auteur</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+
+	<tbody id="message-list">
+
+	</tbody>
+</table>
 </div>
 
 
 <div id ="nouveauContact">
 
 <form id="book-form">
-<h3> Liste des contact(s)</h3>
-</br>
+<p id ="Info"> </p> 
 	<div class="form-group">
 		<input type = "button" onclick = "genererCle()" value = "Générer une clé"> 
 		</br>
@@ -78,11 +88,14 @@ Projet 1
 	<input type="submit" value="Submit" class="btn btn-primary btn-block" />
 </form>
 
+</br>
+</br>
+<h3> Liste des contact(s)</h3>
 <table class="table table-striped mt-5">
 	<thead>
 		<tr>
 			<th>Clé public</th>
-			<th>Author</th>
+			<th>Auteur</th>
 			<th>Action</th>
 		</tr>
 	</thead>
