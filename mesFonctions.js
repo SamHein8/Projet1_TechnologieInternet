@@ -176,6 +176,7 @@ class UI {
     else{
       list.innerHTML = '';
     }
+    document.querySelector("#search").value = '';
   }
 
   static addBookToList(contact){
