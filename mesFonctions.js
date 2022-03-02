@@ -3,15 +3,7 @@ window.onload = function load(){
     document.getElementById("mesMessages").style.display = "none";
     document.getElementById("nouveauContact").style.display = "none";
     document.getElementById("composer").style.display = "none";
-    //var newMessage = document.getElementById("message");
 
-    /*function jsonCarnetContact(name){
-        this.name = name;
-    }
-
-    function jsonMessage(newMessage){
-        this.newMessage = newMessage;
-    }*/
 }
 class Message {
   constructor(contenu,author){
@@ -34,13 +26,27 @@ class UI_Message {
       const list = document.querySelector('#message-list');
 
       const row = document.createElement('tr');
-
+      if(message.contenu.length <= 100){
       row.innerHTML = `
           <td>${message.contenu}</td>
           <td>${message.author}</td>
           <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
       `;
-
+       }
+       else if(message.contenu.length <= 500) {
+        row.innerHTML = `
+        <td rowspan="3">${message.contenu}</td>
+        <td>${message.author}</td>
+        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+        `;
+       }
+       else{
+        row.innerHTML = `
+        <td rowspan="15">${message.contenu}</td>
+        <td>${message.author}</td>
+        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+        `; 
+       }
       list.appendChild(row);
   }
 
@@ -57,28 +63,14 @@ class UI_Message {
       }
   }
 
-  
-  /*static showAlerts(message,className){
-    if(message == "Please fill in all details..."){
-    alert("Veuillez remplir tous les paramètres..." + "\n"  +message);
-    }
-    else if(message == "Book Added"){
-     // alert("Ajoutez au carnet" + "\n"  +message);
-    }
-    else if(message == "Book deleted"){
-     // alert("Retirez du carnet" + "\n"  +message);
-    }
-
-
-  }*/
 }
 class StoreMessage {
   static getMessages() {
       let messages;
-      if(localStorage.getItem('messages') === null) {
+      if(localStorage.getItem('Listemessages') === null) {
         messages = [];
       } else {
-        messages = JSON.parse(localStorage.getItem('messages'));
+        messages = JSON.parse(localStorage.getItem('Listemessages'));
       }
   
       return messages;
@@ -88,7 +80,7 @@ class StoreMessage {
       let messages;
       messages = StoreMessage.getMessages();
       messages.push(message);
-      localStorage.setItem('messages',JSON.stringify(messages));
+      localStorage.setItem('Listemessages',JSON.stringify(messages));
   }
 
   static removeMessage(isbn){
@@ -100,12 +92,36 @@ class StoreMessage {
         }
       });
   
-      localStorage.setItem('messages', JSON.stringify(messages));
+      localStorage.setItem('Listemessages', JSON.stringify(messages));
   }
 }
 
-//document.addEventListener('DOMContentLoaded',UI_Message.displayMessages);
+document.addEventListener('DOMContentLoaded',UI_Message.displayMessages);
 
+document.querySelector('#envoie-message').addEventListener('submit',(e) => {
+  
+
+  e.preventDefault();
+
+ 
+  const title = document.querySelector('#message').value;
+  const author = "1";
+
+  if(title === '' || author === ''){
+      //UI.showAlerts('Please fill in all details...','danger');
+  } else {
+      
+      const newmessage = new Message(title,author);
+
+    
+      UI_Message.addMessageToList(newmessage);
+
+     
+      StoreMessage.saveMessage(newmessage);
+ 
+  }
+
+});
       
 
 document.querySelector('#message-list').addEventListener('click',(e) => {
@@ -132,6 +148,34 @@ class UI {
       contacts.forEach((contact) => UI.addBookToList(contact));
 
      
+  }
+
+  static rechercheContact(recherche){
+    let contacts = Store.getBooks();
+    const list = document.querySelector('#results');
+    var donne = "";
+    contacts.forEach(contact => {
+      if(contact.author === recherche || contact.title === recherche){
+       donne = `
+      <table class="table table-striped mt-5">
+      <tr>
+      <th>Clé</th> 
+      <th>Nom</th>
+      </tr>
+      <tr>
+       <td>${contact.title}</td>
+       <td> ${contact.author}</td>
+       </tr>
+      </table>
+       `;
+      }
+    });
+    if(donne != null){
+      list.innerHTML = donne;
+    }
+    else{
+      list.innerHTML = '';
+    }
   }
 
   static addBookToList(contact){
@@ -211,7 +255,6 @@ class Store {
 
 
 document.addEventListener('DOMContentLoaded',UI.displayBooks);
-document.addEventListener('DOMContentLoaded',UI_Message.displayMessages);
 
 document.querySelector('#book-form').addEventListener('submit',(e) => {
   
@@ -237,6 +280,18 @@ document.querySelector('#book-form').addEventListener('submit',(e) => {
       UI.clearFields();
   }
 
+});
+
+document.querySelector('#search-form').addEventListener('submit',(e) => {
+  
+
+  e.preventDefault();
+
+  var contact = document.querySelector('#search').value;
+
+  var test = document.getElementById("search").value;
+
+  UI.rechercheContact(test);
 });
 
 

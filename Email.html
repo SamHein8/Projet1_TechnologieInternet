@@ -45,12 +45,15 @@ Projet 1
 <!--<label onclick="contact()" for="destinataire" style ="margin-left:10px">À :  </label> -->
 <!--<input type="text" id="destinataire" name="destinataire">-->
 <h3> Composer un nouveau message </h3>
+<form id="envoie-message">
 <textarea id="message" name="envoieMessage" rows="5" onkeypress= "verifierCaractere()" ></textarea>
-<input type = "button" onclick = "envoyerMessage()"  value = "Envoyer">
+<input type="submit" value="Envoyer" class="btn btn-primary btn-block" />
 </br>
+</form>
 </div>
 
 <div id ="mesMessages">
+
 <h3> Mes messages</h3>
 <table class="table table-striped mt-5">
 	<thead>
@@ -69,7 +72,18 @@ Projet 1
 
 
 <div id ="nouveauContact">
-
+</br>
+<form id="search-form">
+	<div id="results">	  
+	</div>
+	<div>
+		<label>
+			<input type="text" name="search" id="search" placeholder="Rechercher un contact" />
+		</label>
+	</div>
+			<input type="submit" value="Rechercher" />
+</form>
+</br>
 <form id="book-form">
 <p id ="Info"> </p> 
 	<div class="form-group">
@@ -95,7 +109,7 @@ Projet 1
 	<thead>
 		<tr>
 			<th>Clé public</th>
-			<th>Auteur</th>
+			<th>Nom</th>
 			<th>Action</th>
 		</tr>
 	</thead>
