@@ -51,10 +51,12 @@ class UI_Message {
   }
 
 
-  /*static clearFields(){
-    document.querySelector("#title").value = " ";
-    document.querySelector("#author").value = " ";
-  }*/
+  static clearFields(){
+    const textareaMessage = document.getElementById("message");
+    const textareaAuteur = document.getElementById("auteur");
+    textareaAuteur.value = '';
+    textareaMessage.value = '';
+  }
 
  
   static deleteMessage(el){
@@ -105,7 +107,7 @@ document.querySelector('#envoie-message').addEventListener('submit',(e) => {
 
  
   const title = document.querySelector('#message').value;
-  const author = "1";
+  const author = document.querySelector('#auteur').value;
 
   if(title === '' || author === ''){
       //UI.showAlerts('Please fill in all details...','danger');
@@ -118,6 +120,8 @@ document.querySelector('#envoie-message').addEventListener('submit',(e) => {
 
      
       StoreMessage.saveMessage(newmessage);
+
+      UI_Message.clearFields();
  
   }
 

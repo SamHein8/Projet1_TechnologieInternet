@@ -40,13 +40,14 @@ Projet 1
 
 </div>
 <div class ="divMessage" id = "composer">
-<br>
+</br>
 <!--<label for="message">Nouveau message</label>-->
 <!--<label onclick="contact()" for="destinataire" style ="margin-left:10px">À :  </label> -->
 <!--<input type="text" id="destinataire" name="destinataire">-->
 <h3> Composer un nouveau message </h3>
 <form id="envoie-message">
 <textarea id="message" name="envoieMessage" rows="5" onkeypress= "verifierCaractere()" ></textarea>
+<input type="text" class = "auteur-input" name="auteur" id="auteur" placeholder="Entrez le nom de l'auteur">
 <input type="submit" value="Envoyer" class="btn btn-primary btn-block" />
 </br>
 </form>
@@ -99,7 +100,7 @@ Projet 1
 		<input type="text" id="author" class="form-control" />
 	</div>
 
-	<input type="submit" value="Submit" class="btn btn-primary btn-block" />
+	<input type="submit" value="Créer" class="btn btn-primary btn-block" />
 </form>
 
 </br>
