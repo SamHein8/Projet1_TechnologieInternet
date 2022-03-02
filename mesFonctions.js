@@ -64,6 +64,34 @@ class UI_Message {
           el.parentElement.parentElement.remove();
       }
   }
+  static rechercheMessage(recherche){
+    let messages = StoreMessage.getMessages();
+    const list = document.querySelector('#resultsMessage');
+    var donne = "";
+    messages.forEach(message => {
+      if(message.author === recherche){
+       donne = `
+      <table class="table table-striped mt-5">
+      <tr>
+      <th>Message</th> 
+      <th>Auteur</th>
+      </tr>
+      <tr>
+       <td>${message.contenu}</td>
+       <td> ${message.author}</td>
+       </tr>
+      </table>
+       `;
+      }
+    });
+    if(donne != null){
+      list.innerHTML = donne;
+    }
+    else{
+      list.innerHTML = '';
+    }
+    document.querySelector("#searchMessage").value = '';
+  }
 
 }
 class StoreMessage {
@@ -132,6 +160,16 @@ document.querySelector('#message-list').addEventListener('click',(e) => {
   UI_Message.deleteMessage(e.target);
 
   StoreMessage.removeMessage(e.target.parentElement.previousElementSibling.textContent);
+});
+
+document.querySelector('#search-form_message').addEventListener('submit',(e) => {
+  
+
+  e.preventDefault();
+
+  var message = document.querySelector('#searchMessage').value;
+
+  UI_Message.rechercheMessage(message);
 });
 
 
@@ -294,9 +332,7 @@ document.querySelector('#search-form').addEventListener('submit',(e) => {
 
   var contact = document.querySelector('#search').value;
 
-  var test = document.getElementById("search").value;
-
-  UI.rechercheContact(test);
+  UI.rechercheContact(contact);
 });
 
 
