@@ -369,3 +369,11 @@ function boutonCarnet(){
     document.getElementById("mesContacts").style.display = "block";
 
 }
+function boutonAbout(){
+  document.getElementById("mesMessages").style.display = "none";
+  document.getElementById("nouveauContact").style.display = "none";
+  document.getElementById("composer").style.display = "none";
+  document.getElementById("principal").style.display = "block";
+  document.getElementById("mesContacts").style.display = "none";
+
+}
