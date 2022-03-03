@@ -5,15 +5,28 @@ window.onload = function load(){
     document.getElementById("composer").style.display = "none";
 
 }
+
+
+/*=====================================================================================================
+
+Section pour la gestion des messages dans le tableau HTML ainsi que dans le localStorage
+
+
+=====================================================================================================*/
+
+
+//Classe pour les messages
 class Message {
   constructor(contenu,author){
       this.contenu = contenu; //Message
       this.author = author; //Author
   }
 }
+
+//Classe pour la gestion de l'affichage des messages
 class UI_Message {
 
-
+  //Afficher les messages
   static displayMessages(){
       let messages = StoreMessage.getMessages();
 
@@ -21,36 +34,21 @@ class UI_Message {
 
      
   }
-
+  //Ajouter un message au tableau
   static addMessageToList(message){
       const list = document.querySelector('#message-list');
 
       const row = document.createElement('tr');
-      if(message.contenu.length <= 100){
       row.innerHTML = `
           <td>${message.contenu}</td>
           <td>${message.author}</td>
-          <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+          <td><a href="#" class="btn-supprimer delete">X</a>    <a href="#" class="btn-modifier modifier">Modifier</a></td>
       `;
-       }
-       else if(message.contenu.length <= 500) {
-        row.innerHTML = `
-        <td rowspan="3">${message.contenu}</td>
-        <td>${message.author}</td>
-        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
-        `;
-       }
-       else{
-        row.innerHTML = `
-        <td rowspan="15">${message.contenu}</td>
-        <td>${message.author}</td>
-        <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
-        `; 
-       }
+
       list.appendChild(row);
   }
 
-
+  //Effacer les champs de de création d'un message
   static clearFields(){
     const textareaMessage = document.getElementById("message");
     const textareaAuteur = document.getElementById("auteur");
@@ -58,12 +56,12 @@ class UI_Message {
     textareaMessage.value = '';
   }
 
- 
+  //Supprimer un message du tableau
   static deleteMessage(el){
-      if(el.classList.contains('delete')){
-          el.parentElement.parentElement.remove();
-      }
+    el.parentElement.parentElement.remove();
   }
+
+  //Rechercher un message dans le tableau
   static rechercheMessage(recherche){
     let messages = StoreMessage.getMessages();
     const list = document.querySelector('#resultsMessage');
@@ -71,7 +69,7 @@ class UI_Message {
     messages.forEach(message => {
       if(message.author === recherche){
        donne = `
-      <table class="table table-striped mt-5">
+      <table class="table-custom">
       <tr>
       <th>Message</th> 
       <th>Auteur</th>
@@ -94,7 +92,9 @@ class UI_Message {
   }
 
 }
+//Classe pour gérer les messages dans le localStorage
 class StoreMessage {
+  //Trouver les messages dans le localStorage
   static getMessages() {
       let messages;
       if(localStorage.getItem('Listemessages') === null) {
@@ -105,14 +105,14 @@ class StoreMessage {
   
       return messages;
     }
-
+//Enregistrer un message dans le localStorage
   static saveMessage(message){
       let messages;
       messages = StoreMessage.getMessages();
       messages.push(message);
       localStorage.setItem('Listemessages',JSON.stringify(messages));
   }
-
+//Retirer un message dans le localStorage
   static removeMessage(isbn){
       const messages = StoreMessage.getMessages();
 
@@ -124,10 +124,25 @@ class StoreMessage {
   
       localStorage.setItem('Listemessages', JSON.stringify(messages));
   }
+  //Modifier un message dans le localStorage 
+  static modifierMessage(isbn){
+    const messages = StoreMessage.getMessages();
+
+    messages.forEach((message, index) => {
+      if(message.author === isbn) {
+        document.querySelector('#message').value = message.contenu;
+        document.querySelector('#auteur').value = message.author;
+        messages.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('Listemessages', JSON.stringify(messages));
+}
 }
 
 document.addEventListener('DOMContentLoaded',UI_Message.displayMessages);
 
+//Vérification du bonton envoyer (Ajout d'un message)
 document.querySelector('#envoie-message').addEventListener('submit',(e) => {
   
 
@@ -138,7 +153,7 @@ document.querySelector('#envoie-message').addEventListener('submit',(e) => {
   const author = document.querySelector('#auteur').value;
 
   if(title === '' || author === ''){
-      //UI.showAlerts('Please fill in all details...','danger');
+
   } else {
       
       const newmessage = new Message(title,author);
@@ -155,11 +170,17 @@ document.querySelector('#envoie-message').addEventListener('submit',(e) => {
 
 });
       
-
+//Vérification du bonton Supprimer et Modifier (Suppression ou modification d'un message)
 document.querySelector('#message-list').addEventListener('click',(e) => {
-  UI_Message.deleteMessage(e.target);
-
-  StoreMessage.removeMessage(e.target.parentElement.previousElementSibling.textContent);
+  if(e.target.classList.contains('delete')){
+    UI_Message.deleteMessage(e.target);
+    StoreMessage.removeMessage(e.target.parentElement.previousElementSibling.textContent);
+  }
+  else{
+    UI_Message.deleteMessage(e.target);
+    StoreMessage.modifierMessage(e.target.parentElement.previousElementSibling.textContent);
+    boutonNouveau();
+  }
 });
 
 document.querySelector('#search-form_message').addEventListener('submit',(e) => {
@@ -173,33 +194,42 @@ document.querySelector('#search-form_message').addEventListener('submit',(e) => 
 });
 
 
+/*=====================================================================================================
 
+Section pour la gestion des contacts dans la page HTML ainsi que dans le localStorage
+
+
+=====================================================================================================*/
+
+
+
+//Classe contenant un contact 
 class Contact {
   constructor(title,author){
       this.title = title; //Cle
       this.author = author; // Nom
   }
 }
-
+//Gestion de l'interface pour la création de nouveaux contacts
 class UI {
 
+  //Afficher les contacts
+  static displayContacts(){
+      let contacts = Store.getContacts();
 
-  static displayBooks(){
-      let contacts = Store.getBooks();
-
-      contacts.forEach((contact) => UI.addBookToList(contact));
+      contacts.forEach((contact) => UI.addContactToList(contact));
 
      
   }
-
+  //Rechercher un contact
   static rechercheContact(recherche){
-    let contacts = Store.getBooks();
+    let contacts = Store.getContacts();
     const list = document.querySelector('#results');
     var donne = "";
     contacts.forEach(contact => {
       if(contact.author === recherche || contact.title === recherche){
        donne = `
-      <table class="table table-striped mt-5">
+      <table class="table-custom">
       <tr>
       <th>Clé</th> 
       <th>Nom</th>
@@ -220,8 +250,8 @@ class UI {
     }
     document.querySelector("#search").value = '';
   }
-
-  static addBookToList(contact){
+   //Ajouter un contact au carnet
+  static addContactToList(contact){
       const list = document.querySelector('#book-list');
 
       const row = document.createElement('tr');
@@ -229,34 +259,32 @@ class UI {
       row.innerHTML = `
           <td>${contact.title}</td>
           <td>${contact.author}</td>
-          <td><a href="#" class="btn btn-danger btn-sm delete">X</a></td>
+          <td><a href="#" class="btn-supprimer delete">X</a>    <a href="#" class="btn-modifier modifier">Modifier</a></td>
       `;
 
       list.appendChild(row);
   }
 
-
+   //Vide les entrées pour la création  d'un contact
   static clearFields(){
     document.querySelector("#title").value = " ";
     document.querySelector("#author").value = " ";
   }
 
- 
-  static deleteBook(el){
-      if(el.classList.contains('delete')){
-          el.parentElement.parentElement.remove();
-      }
+  //Supprimer un contact au carnet
+  static deleteContact(el){
+    el.parentElement.parentElement.remove();
   }
 
-  
+   //Gestion des alertes
   static showAlerts(message,className){
     if(message == "Please fill in all details..."){
-    alert("Veuillez remplir tous les paramètres..." + "\n"  +message);
+    alert("Veuillez remplir tous les paramètres...");
     }
-    else if(message == "Book Added"){
+    else if(message == "Contact Added"){
      // alert("Ajoutez au carnet" + "\n"  +message);
     }
-    else if(message == "Book deleted"){
+    else if(message == "Contact deleted"){
      // alert("Retirez du carnet" + "\n"  +message);
     }
 
@@ -264,8 +292,9 @@ class UI {
   }
 }
 
+//Gestion des contacts dans le localStorage
 class Store {
-  static getBooks() {
+  static getContacts() {
       let contacts;
       if(localStorage.getItem('contacts') === null) {
         contacts = [];
@@ -275,16 +304,16 @@ class Store {
   
       return contacts;
     }
-
-  static saveBook(contact){
+//Enregistrer un contact dans le localStorage
+  static saveContact(contact){
       let contacts;
-      contacts = Store.getBooks();
+      contacts = Store.getContacts();
       contacts.push(contact);
       localStorage.setItem('contacts',JSON.stringify(contacts));
   }
-
-  static removeBook(isbn){
-      const contacts = Store.getBooks();
+//Retirer un contact dans le localStorage
+  static removeContact(isbn){
+      const contacts = Store.getContacts();
 
       contacts.forEach((contact, index) => {
         if(contact.author === isbn) {
@@ -294,11 +323,28 @@ class Store {
   
       localStorage.setItem('contacts', JSON.stringify(contacts));
   }
+  //Modifier un contact dans le localStorage
+  static ModifierContact(isbn){
+    const contacts = Store.getContacts();
+
+    contacts.forEach((contact, index) => {
+      if(contact.author === isbn) {
+        document.querySelector('#author').value = contact.author;
+        document.querySelector('#title').value = contact.title;
+        contacts.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+}
 }
 
 
-document.addEventListener('DOMContentLoaded',UI.displayBooks);
+document.addEventListener('DOMContentLoaded',UI.displayContacts);
 
+
+
+//Vérification du bonton Ajouter (Ajout d'un contact dans le tableau et localStorage)
 document.querySelector('#book-form').addEventListener('submit',(e) => {
   
 
@@ -315,16 +361,16 @@ document.querySelector('#book-form').addEventListener('submit',(e) => {
       const contact = new Contact(title,author);
 
     
-      UI.addBookToList(contact);
+      UI.addContactToList(contact);
 
      
-      Store.saveBook(contact);
+      Store.saveContact(contact);
  
       UI.clearFields();
   }
 
 });
-
+//Vérification du bonton rechercher (Recherche d'un contact)
 document.querySelector('#search-form').addEventListener('submit',(e) => {
   
 
@@ -335,14 +381,20 @@ document.querySelector('#search-form').addEventListener('submit',(e) => {
   UI.rechercheContact(contact);
 });
 
-
+//Vérification du bonton Supprimer et Modifier (Suppression ou modification d'un contact)
 document.querySelector('#book-list').addEventListener('click',(e) => {
-  UI.deleteBook(e.target);
+  if(e.target.classList.contains('delete')){
+    UI.deleteContact(e.target);
 
-  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+    Store.removeContact(e.target.parentElement.previousElementSibling.textContent);
+  }
+  else{
+    UI.deleteContact(e.target);
+    Store.ModifierContact(e.target.parentElement.previousElementSibling.textContent);
+  }
 });
 
-
+//Vérification des caractère entrés par l'utilisateur
 
 function verifierCaractere(){
     var regex = /^[a-zA-Z\éêëèïîôöûùÉçÇâàáa\n\s\,.]+$/i;
@@ -354,11 +406,12 @@ function verifierCaractere(){
        
     }
 }
+
+//Function pour générer la clé public
 function dec2hex (dec) {
     return dec.toString(16).padStart(2, "0");
   }
   
-  // generateId :: Integer -> String
   function generateId (len) {
     var arr = new Uint8Array((len || 175) / 2);
     window.crypto.getRandomValues(arr);
@@ -368,6 +421,7 @@ function genererCle(){
     document.getElementById("title").value = generateId();
 }
 
+//Fonction pour envoyer un message (Actuellement envoie le message dans le localStorage)
 function envoyerMessage(){
 
   const message = document.getElementById("message").value;
@@ -382,6 +436,8 @@ function envoyerMessage(){
   StoreMessage.saveMessage(messages);
 }
 
+
+//Fonction pour la gestion de l'interface de la page Web
 function boutonNouveau(){
     document.getElementById("mesMessages").style.display = "none";
     document.getElementById("nouveauContact").style.display = "none";
@@ -411,5 +467,5 @@ function boutonAbout(){
   document.getElementById("composer").style.display = "none";
   document.getElementById("principal").style.display = "block";
   document.getElementById("mesContacts").style.display = "none";
-
+  document.getElementById("btnAbout").style.backgroundColor = "#04AA6D";
 }

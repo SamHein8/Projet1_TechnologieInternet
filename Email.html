@@ -4,11 +4,10 @@
 <link rel="stylesheet" href="css.css">
 <body>
 <div class = "topnav">
-  <a class="active">Home</a>
-  <a onclick ="boutonNouveau()">Nouveau message</a>
-  <a onclick ="boutonCarnet()">Carnet d'adresse</a>
-  <a onclick ="boutonBoite()">Boite de réception</a>
-  <a onclick = "boutonAbout()">About</a>
+  <a id="btnNouveau" onclick ="boutonNouveau()">Nouveau message</a>
+  <a id="btnCAdresse" onclick ="boutonCarnet()">Carnet d'adresses</a>
+  <a id="btnReception" onclick ="boutonBoite()">Boite de réception</a>
+  <a id="btnAbout" onclick = "boutonAbout()">About</a>
 </div>
 <div id ="principal" class = "principal">
 <h3>UNIVERSITÉ DU QUÉBEC EN OUTAOUAIS</h3>
@@ -48,10 +47,9 @@ Projet 1
 <!--<input type="text" id="destinataire" name="destinataire">-->
 <h3> Composer un nouveau message </h3>
 <form id="envoie-message">
-<textarea id="message" name="envoieMessage" rows="5" onkeypress= "verifierCaractere()" ></textarea>
-<input type="text" class = "auteur-input" name="auteur" id="auteur" placeholder="Entrez le nom de l'auteur">
+<textarea id="message" name="envoieMessage" rows= "5" cols= "20" wrap="hard"  onkeypress= "verifierCaractere()" ></textarea>
+<input type="text" class = "auteur-input" name="auteur" id="auteur" placeholder="Entrez le nom de l'auteur" />
 <input type="submit" value="Envoyer" class="btn btn-primary btn-block" />
-</br>
 </form>
 </div>
 
@@ -70,7 +68,7 @@ Projet 1
 </br>
 <h3> Mes messages</h3>
 
-<table class="table table-striped mt-5">
+<table class="table-custom" />
 	<thead>
 		<tr>
 			<th>Message</th>
@@ -101,18 +99,14 @@ Projet 1
 </br>
 
 <form id="book-form">
-<p id ="Info"> </p> 
+<input class ="btn-generer" type = "button" onclick = "genererCle()" value = "Générer une clé"> 
 	<div class="form-group">
-		<input type = "button" onclick = "genererCle()" value = "Générer une clé"> 
-		</br>
-		</br>
-		<label for="title">Clé</label>
-		<input type="text" id="title" class="form-control" />
+		<label for="title">Clé : </label>
+		<input type="text" id="title" class="form-control"/>
 	</div>
-
 	<div class="form-group">
-		<label for="author">Nom</label>
-		<input type="text" id="author" class="form-control" />
+		<label for="author">Nom : </label>
+		<input type="text" id="author" class="form-control"/>
 	</div>
 
 	<input type="submit" value="Créer" class="btn btn-primary btn-block" />
@@ -121,7 +115,7 @@ Projet 1
 </br>
 </br>
 <h3> Liste des contact(s)</h3>
-<table class="table table-striped mt-5">
+<table class="table-custom">
 	<thead>
 		<tr>
 			<th>Clé public</th>
