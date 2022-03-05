@@ -1,19 +1,19 @@
-
-
 .table-custom {
 	font-family: Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
-	width: 100%;
+	width: 95%;
     overflow-wrap: break-word;
 	white-space: pre-wrap;
-
+	table-layout: fixed;
+	margin-left: 8px;	
 }
+
 .table-custom td{	
 	border : 1px solid #ddd;
 	padding: 8px;
-	font-size: 16px;
-	white-space:pre ;
+	font-size: 16px;	
 }
+
 .table-custom th{
 	border : 1px solid #ddd;
 	padding: 8px;
@@ -29,8 +29,8 @@
 	padding-bottom: 12px;
 	text-align: left;
 	color: black;
-	
 }
+
 input[type=text], select{
 	width: 95%;
 	padding: 12px 20px;
@@ -39,30 +39,31 @@ input[type=text], select{
 	display: inline-block;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	box-sizing: border-box;
-		
+	box-sizing: border-box;	
 }
+
 label { 
-	padding: 12px 20px;
 	display:block;
+	width: 100%;
 }
 
 input[type=submit] {
-  width: 100%;
-  align: center;
-  background-color: #71bcee;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  margin-left : 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
+	width: 95%;
+	background-color: #71bcee;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	margin-left : 10px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	text-align: center; 
 }
+
 input[type=submit]:hover {
   background-color: #8dc9f2;
 }
+
 .btn-supprimer{
 	background-color: #ff4d4d;
 	padding: 12px 12px;
@@ -74,11 +75,13 @@ input[type=submit]:hover {
 	font-weight: bolder;
 	border-radius: 4px;
 }
+
 .btn-supprimer:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
 .btn-modifier{
-	background-color: #ff4d4d;	
+	background-color: #ff4d4d;
 	padding: 12px 12px;
 	text-align: center;
 	text-decoration: none;
@@ -88,11 +91,14 @@ input[type=submit]:hover {
 	font-weight: bolder;
 	border-radius: 4px;
 }
+
 .btn-modifier:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
-/*.btn-generer{
+.btn-generer{ 
+	margin: 0px 0px 10px 10px; 
+	/*
 	background-color: #4CAF50;	
 	padding: 12px 12px;
 	text-align: center;
@@ -102,11 +108,14 @@ input[type=submit]:hover {
 	border-radius: 4px;
 	margin-left : 10px;
 	color: white;
-	font-weight: bolder;	
+	font-weight: bolder;
+	*/	
 }
+
 .btn-generer:hover {
-  background-color: #45a049;
-}*/
+  background-color: #8dc9f2;;
+}
+
 .btn-generer{
 	margin-left : 10px;
 }
@@ -116,6 +125,7 @@ input[type=submit]:hover {
   overflow: hidden;
   width: 100%;
 }
+
 .topnav a {
   float: left;
   color: #f2f2f2;
@@ -123,10 +133,10 @@ input[type=submit]:hover {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  
 }
+
 .topnav a:hover {
-  background-color: #ddd;
+  background-color: #d3d3d3;
   color: black;
 }
 
@@ -135,28 +145,21 @@ input[type=submit]:hover {
   color: white;
 }
 
-.divMessage {
-	width: 100%;
-	
-	
-}
+
 .textSecretKey{
 	height: 100px;
-	
-	
 }
 
 .principal {
  border: 5px solid #f2f2f2;
  text-align: center;
  white-space: pre;
-	
 }
 
 textarea{
-	width: 95%;
+	width: 94.3%;
 	padding: 6px;
-	margin-left : 10px;
+	margin: 0 0 0 9px;
 	resize: none;	
 }
 
@@ -166,12 +169,14 @@ textarea{
 	padding: 6px;
 	width: 95%;
 }
-h3{
-	width: 100%;
+
+h3 {
+	
 	margin : 10px;
 	margin-top : 10px;
 	margin-left : 10px;	
 	text-align: center;
+	font-size: x-large;
 }
 
 h4{
@@ -179,3 +184,8 @@ h4{
 	margin-top : 10px;
 	margin-left : 10px;	
 }
+
+div#composer.divMessage, div#nouveauContact, div#mesMessages {
+	margin: 0px 100px;
+}
+

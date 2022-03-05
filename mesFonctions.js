@@ -87,6 +87,7 @@ class UI_Message {
     }
     else{
       list.innerHTML = '';
+      alert("Aucune correspondance");
     }
     document.querySelector("#searchMessage").value = '';
   }
@@ -189,6 +190,7 @@ document.querySelector('#search-form_message').addEventListener('submit',(e) => 
   e.preventDefault();
 
   var message = document.querySelector('#searchMessage').value;
+
 
   UI_Message.rechercheMessage(message);
 });

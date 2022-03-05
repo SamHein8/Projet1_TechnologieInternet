@@ -1,137 +1,148 @@
 <!DOCTYPE html>
 <html>
-<head></head>
-<link rel="stylesheet" href="css.css">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="mesFonctions.js" defer></script>
+	<link rel="stylesheet" href="css.css">
+	<title>Projet 1 INF4533</title>
+</head>
+
 <body>
-<div class = "topnav">
-  <a id="btnNouveau" onclick ="boutonNouveau()">Nouveau message</a>
-  <a id="btnCAdresse" onclick ="boutonCarnet()">Carnet d'adresses</a>
-  <a id="btnReception" onclick ="boutonBoite()">Boite de réception</a>
-  <a id="btnAbout" onclick = "boutonAbout()">About</a>
-</div>
-<div id ="principal" class = "principal">
-<h3>UNIVERSITÉ DU QUÉBEC EN OUTAOUAIS</h3>
-TRAVAIL DE SESSION
-
-PRÉSENTÉ À
-
-Fraczak Wojciech
-
-COMME EXIGENCE PARTIELLE
-
-DU COURS
-
-Technologie Internet 
-
-
-PAR
-
-Hein Samuel
-Patrick Patenaude
-Lawrence Kater
-
-Projet 1
-
-
-
-
-08-03-2022
-
-
-
-</div>
-<div class ="divMessage" id = "composer">
-</br>
-<!--<label for="message">Nouveau message</label>-->
-<!--<label onclick="contact()" for="destinataire" style ="margin-left:10px">À :  </label> -->
-<!--<input type="text" id="destinataire" name="destinataire">-->
-<h3> Composer un nouveau message </h3>
-<form id="envoie-message">
-<textarea id="message" name="envoieMessage" rows= "5" cols= "20" wrap="hard"  onkeypress= "verifierCaractere()" ></textarea>
-<input type="text" class = "auteur-input" name="auteur" id="auteur" placeholder="Entrez le nom de l'auteur" />
-<input type="submit" value="Envoyer" class="btn btn-primary btn-block" />
-</form>
-</div>
-
-<div id ="mesMessages">
-</br>
-<form id="search-form_message">
-	<div id="resultsMessage">	  
+	<!--Onglets de Navigation Start-->
+	<div class = "topnav">
+		<a id="btnNouveau" onclick ="boutonNouveau()">Nouveau message</a>
+		<a id="btnCAdresse" onclick ="boutonCarnet()">Carnet d'adresses</a>
+		<a id="btnReception" onclick ="boutonBoite()">Boite de réception</a>
+		<a id="btnAbout" onclick = "boutonAbout()">About</a>
 	</div>
-	<div>
-		<label>
-			<input type="text" name="searchMessage" id="searchMessage" placeholder="Rechercher un auteur" />
-		</label>
+	<!--Onglets de Navigation End-->
+
+	<!--About Start-->
+	<div id ="principal" class = "principal">
+		<h3>UNIVERSITÉ DU QUÉBEC EN OUTAOUAIS</h3>
+		TRAVAIL DE SESSION 
+
+		PRÉSENTÉ À
+
+		Fraczak Wojciech
+		
+
+		COMME EXIGENCE PARTIELLE
+
+		DU COURS
+
+		INF4533 - Technologie Internet 
+
+
+		PAR
+
+		Hein Samuel
+		Patrick Patenaude
+		Lawrence Kater
+
+		
+
+
+
+		08-03-2022
+
+
+
 	</div>
-			<input type="submit" value="Rechercher" />
-</form>
-</br>
-<h3> Mes messages</h3>
+	<!--About End-->
 
-<table class="table-custom" />
-	<thead>
-		<tr>
-			<th>Message</th>
-			<th>Auteur</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-
-	<tbody id="message-list">
-
-	</tbody>
-</table>
-</div>
-
-
-<div id ="nouveauContact">
-</br>
-<form id="search-form">
-	<div id="results">	  
+	<!--Nouveau Message Start-->
+	<div class ="divMessage" id = "composer">
+		</br>
+		<h3 style="margin: 27px 0px"> Composer un nouveau message </h3>
+		<form id="envoie-message">
+			<textarea id="message" name="envoieMessage" rows= "5" cols= "20" wrap="hard"  onkeypress= "verifierCaractere()" ></textarea>
+			<input type="text" class = "auteur-input" name="auteur" id="auteur" placeholder="Entrez le nom de l'auteur" />
+			<input type="submit" value="Envoyer" class="btn btn-primary btn-block" />
+		</form>
 	</div>
-	<div>
-		<label>
-			<input type="text" name="search" id="search" placeholder="Rechercher un contact" />
-		</label>
+	<!--Nouveau Message End-->
+
+	<!--Boite de Reception Start-->
+	<div id ="mesMessages">
+		</br></br>
+		<h3> Mes messages</h3>
+		<form id="search-form_message"> <!--Rechercher un Message-->
+			<div id="resultsMessage">	  
+			</div>
+			<div>
+				<label>
+					<input type="text" name="searchMessage" id="searchMessage" placeholder="Rechercher un auteur" />
+					<input type="submit" value="Rechercher" />
+				</label>
+			</div>		
+		</form>
+
+		</br>
+
+		<table class="table-custom"> <!--Tableaux de Messages-->
+			<thead>
+				<tr>
+					<th>Message</th>
+					<th>Auteur</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody id="message-list"></tbody>
+		</table>
 	</div>
-			<input type="submit" value="Rechercher" />
-</form>
-</br>
+	<!--Boite de Reception End-->
 
-<form id="book-form">
-<h3> Créer un contact </h3>
-<input class ="btn-generer" type = "button" onclick = "genererCle()" value = "Générer une clé"> 
-	<div class="form-group">
-		<label for="title">Clé : </label>
-		<input type="text" id="title" class="form-control"/>
+	<!--Carnet d'adresse Start-->
+	<div id ="nouveauContact">
+		</br></br>
+		<form id="book-form"> <!--Création de Contacts-->
+			<h3> Créer un contact </h3>
+			<div class="form-group">
+				<label for="title">Clé : </label>
+				<input type="text" id="title" class="form-control"/>
+				<input class ="btn-generer" type = "button" onclick = "genererCle()" value = "Générer une clé"> 
+			</div>
+
+			<div class="form-group">
+				<label for="author">Nom : </label>
+				<input type="text" id="author" class="form-control"/>
+				<input type="submit" value="Créer" class="btn btn-primary btn-block" />
+			</div>
+		</form>
+
+		</br></br></br>
+
+		<div class="divContacts"> <!--Liste de Contacts-->
+			<h3>Rechercher dans les contacts</h3>
+			<form id="search-form">
+				<div id="results"></div>  
+				<div>
+					<label>
+						<input type="text" name="search" id="search" placeholder="Rechercher un contact" />
+						<input type="submit" value="Rechercher" />
+					</label>
+				</div>
+			</form>
+			<h3>Liste des contacts</h3>
+			<table class="table-custom"> <!--Tableau de Contacts-->
+				<thead>
+					<tr>
+						<th>Clé public</th>
+						<th>Nom</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody id="book-list">
+				</tbody>
+			</table>
+
+		</div>		
+		</br>
 	</div>
-	<div class="form-group">
-		<label for="author">Nom : </label>
-		<input type="text" id="author" class="form-control"/>
-	</div>
-
-	<input type="submit" value="Créer" class="btn btn-primary btn-block" />
-</form>
-
-</br>
-</br>
-<h3> Liste des contact(s)</h3>
-<table class="table-custom">
-	<thead>
-		<tr>
-			<th>Clé public</th>
-			<th>Nom</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-
-	<tbody id="book-list">
-
-	</tbody>
-</table>
-</br>
-</div>
-
-<script src="mesFonctions.js"></script>
+	<!--Carnet d'adresse End-->
+	<script></script>
 </body>
 </html>
